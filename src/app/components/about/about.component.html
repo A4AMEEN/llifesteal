@@ -1,0 +1,77 @@
+<!-- about.component.html -->
+<app-minecraft-header></app-minecraft-header>
+
+<main class="min-h-screen bg-gray-900 pt-20 px-4 md:px-8 pb-12">
+  <!-- Hero Section -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 minecraft-text">About Mallu LifeSteal</h1>
+    <p class="text-gray-300 text-lg max-w-2xl mx-auto">Experience Minecraft like never before with our unique LifeSteal system and vibrant community.</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto">
+    <!-- Server Description -->
+    <div class="bg-gray-800 rounded-xl border-4 border-green-600 p-6 mb-8 transform hover:scale-[1.02] transition-transform duration-300 minecraft-container">
+      <h2 class="text-2xl font-bold text-white mb-4 minecraft-text">Welcome to Our World</h2>
+      <p class="text-gray-300 leading-relaxed">
+        Mallu LifeSteal is more than just a Minecraft server - it's a thriving community where players can engage in heart-stealing PvP, trade valuable items, and participate in exciting events. Our server combines traditional Minecraft gameplay with unique mechanics that make every moment exciting and rewarding.
+      </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div *ngFor="let feature of serverFeatures" 
+           class="bg-gray-800 rounded-xl border-4 border-blue-600 p-6 transform hover:scale-[1.02] transition-transform duration-300 minecraft-container">
+        <div class="flex items-start space-x-4">
+          <span class="text-3xl">{{ feature.icon }}</span>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-2 minecraft-text">{{ feature.title }}</h3>
+            <p class="text-gray-300">{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Server Rules Section -->
+    <div class="bg-gray-800 rounded-xl border-4 border-red-600 p-6 mb-8 transform hover:scale-[1.02] transition-transform duration-300 minecraft-container">
+        <h2 class="text-2xl font-bold text-white mb-4 minecraft-text">⚠️ Server Rules ⚠️</h2>
+        <div class="text-gray-300 space-y-4">
+            <p class="mb-4">To maintain a fair and secure trading environment, follow these rules. **Failure to comply may result in penalties, including a ban.**</p>
+    
+            <ul class="list-disc list-inside space-y-2 pl-4">
+                <li><span class="font-semibold text-red-400">⚠️ Real Cash Trade:</span> Trading with Real Money is not preffered.But optional!Do at your own risk</li>
+                <li><span class="font-semibold text-red-400">❌ No Begging for Free Items/Trades:</span> Repeated begging will result in **data clearance and a permanent ban.**</li>
+                <li><span class="font-semibold text-red-400">❌ No Begging for Free Items/Trades:</span> Repeated begging will result in **data clearance and a permanent ban.**</li>
+                <li><span class="font-semibold text-red-400">❌ No Multiple Linked Accounts:</span> Using multiple linked Discord accounts is prohibited. **If detected, all associated accounts will be terminated.**</li>
+                <li><span class="font-semibold text-red-400">❌ No Price Complaints:</span> Do **not** compare or criticize our pricing. **Arguing about prices may lead to a trade ban.**</li>
+                <li><span class="font-semibold text-red-400">❌ No Scamming:</span> If anyone of you scams the dealers and dont cooperate with us.You wont be playing peacefully in game.</li>
+                <li><span class="font-semibold text-red-400">❌ No Fake/Time-Wasting Trades:</span> Booking a trade and not completing it will **lower your trade score, affecting discounts and bonuses, and may lead to a ban.**</li>
+                <li><span class="font-semibold text-red-400">❌ No Unauthorized Item Changes:</span> **Trades must be completed with the agreed-upon items.** Changing the deal last minute will lower your trade score.</li>
+                <li><span class="font-semibold text-red-400">🔄 Return Policy:</span> **Returns are only allowed within 1 hour of trade completion.**</li>
+                <li><span class="font-semibold text-red-400">⭐ Trade Score System:</span> Your **trade reputation matters!** A higher trade score unlocks **exclusive discounts and bonuses.**</li>
+            </ul>
+    
+            <p class="mt-4 italic font-semibold text-red-500">⚠️ **Main Rule:** Disrespecting trade admins will result in an **instant and permanent ban.**</p>
+        </div>
+    </div>
+    
+
+    <!-- Community Section -->
+    <div class="bg-gray-800 rounded-xl border-4 border-purple-600 p-6 minecraft-container">
+      <h2 class="text-2xl font-bold text-white mb-4 minecraft-text">Join Our Community(coming soon)</h2>
+      <div class="text-gray-300 space-y-4">
+        <p>
+          Our server is home to players from all around Kerala, creating a unique and friendly gaming environment. Whether you're a seasoned Minecraft veteran or just starting out, there's a place for you here.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center mt-6">
+          <button class="minecraft-button bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-lg">
+            Join Discord
+          </button>
+          <button class="minecraft-button bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg">
+            Server Rules
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

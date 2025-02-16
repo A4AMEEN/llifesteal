@@ -1,0 +1,144 @@
+<!-- user-trades.component.html -->
+<main class="min-h-screen bg-gray-900 pt-20 px-4 md:px-8 bg-[url('/assets/3858.jpg')] bg-cover bg-center">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Your Trades History</h1>
+      <p class="text-gray-300 text-lg">View and manage your trading activity</p>
+    </div>
+  
+    <div class="max-w-6xl mx-auto bg-gray-900 rounded-lg p-3 border-4 border-green-600 shadow-xl overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse border-4 border-green-600">
+          <thead>
+            <tr class="bg-green-700 border-b-4 border-green-800">
+              <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Image</th>
+              <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Item</th>
+              <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Qty</th>
+              <th colspan="2" class="px-3 py-2 text-center text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Total Price</th>
+              <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Status</th>
+              <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white">Action</th>
+            </tr>
+            <tr class="bg-green-700 border-b-4 border-green-800">
+              <th class="px-3 py-2 border-r-4 border-green-800"></th>
+              <th class="px-3 py-2 border-r-4 border-green-800"></th>
+              <th class="px-3 py-2 border-r-4 border-green-800"></th>
+              <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Ingots</th>
+              <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">IRL (₹)</th>
+              <th class="px-3 py-2 border-r-4 border-green-800"></th>
+              <th class="px-3 py-2"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y-4 divide-green-800">
+            <tr *ngFor="let trade of userTrades" class="bg-gray-800 hover:bg-green-900 transition-colors border-b-4 border-green-800">
+              <!-- Image Column -->
+              <td class="px-1 py-2 border-r-4 border-green-600 w-20 min-w-[5rem]">
+                <div class="flex items-center justify-center">
+                  <img 
+                    *ngIf="trade.tradeId?.img" 
+                    [src]="'http://localhost:5000' + trade.tradeId.img" 
+                    alt="Trade Item" 
+                    class="w-16 h-16 object-cover rounded"
+                  >
+                </div>
+              </td>
+              <!-- Item Name -->
+              <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                <div class="flex items-center justify-center">
+                  {{ trade.tradeId?.itemName }}
+                </div>
+              </td>
+              <!-- Quantity -->
+              <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                <div class="flex items-center justify-center">
+                  {{ trade.quantity }}
+                </div>
+              </td>
+              <!-- Total Price Ingots -->
+              <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                <div class="flex items-center justify-center">
+                  {{ trade.totalPrice?.ingot }}
+                </div>
+              </td>
+              <!-- Total Price RS -->
+              <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                <div class="flex items-center justify-center">
+                  {{ trade.totalPrice?.rs }}
+                </div>
+              </td>
+              <!-- Status -->
+              <td class="px-3 py-2 text-xs md:text-sm border-r-4 border-green-600">
+                <div class="flex items-center justify-center">
+                  <span [ngClass]="{
+                    'bg-yellow-600 text-white': trade.status === 'pending',
+                    'bg-green-600 text-white': trade.status === 'completed',
+                    'bg-red-600 text-white': trade.status === 'cancelled'
+                  }" class="px-2 py-1 rounded-full text-xs">
+                    {{ trade.status | titlecase }}
+                  </span>
+                </div>
+              </td>
+              <!-- Action Button -->
+              <td class="px-3 py-2 text-xs md:text-sm">
+                <div class="flex items-center justify-center">
+                  <button 
+                    *ngIf="trade.status === 'pending'"
+                    (click)="cancelTrade(trade._id)"
+                    class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 md:px-4 md:py-2 rounded border-2 border-red-800 transition-colors">
+                    Cancel
+                  </button>
+                  <span 
+                    *ngIf="trade.status !== 'pending'"
+                    class="text-gray-500">
+                    No actions available
+                  </span>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Empty state when no trades are available -->
+            <tr *ngIf="userTrades.length === 0" class="bg-gray-800 hover:bg-green-900 transition-colors border-b-4 border-green-800">
+              <td colspan="7" class="px-3 py-8 text-center text-gray-300">
+                No trades found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Controls -->
+      <!-- Pagination Controls Section -->
+<div *ngIf="allTrades.length > 0" class="flex flex-col md:flex-row items-center justify-between mt-6 px-4 py-4 bg-gray-800 border-4 border-green-600 rounded-lg">
+    <div class="text-gray-300 text-sm mb-4 md:mb-0">
+      Showing {{ (currentPage - 1) * itemsPerPage + 1 }}-{{ getLastItemIndex() }} of {{ allTrades.length }} trades
+    </div>
+    
+    <div class="flex items-center space-x-2">
+      <button 
+        (click)="prevPage()" 
+        [disabled]="currentPage === 1"
+        [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === 1}"
+        class="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded border-2 border-green-800 transition-colors">
+        Previous
+      </button>
+      
+      <div class="flex items-center space-x-1">
+        <ng-container *ngFor="let page of getPagesArray(); let i = index">
+          <button 
+            (click)="goToPage(i + 1)"
+            [ngClass]="{'bg-green-500 border-green-400': currentPage === i + 1, 'bg-green-800 border-green-700': currentPage !== i + 1}"
+            class="text-white w-8 h-8 rounded-full transition-colors border-2">
+            {{ i + 1 }}
+          </button>
+        </ng-container>
+      </div>
+      
+      <button 
+        (click)="nextPage()" 
+        [disabled]="currentPage === totalPages"
+        [ngClass]="{'opacity-50 cursor-not-allowed': currentPage === totalPages}"
+        class="bg-green-700 hover:bg-green-600 text-white px-4 py-2 rounded border-2 border-green-800 transition-colors">
+        Next
+      </button>
+    </div>
+  </div>
+    </div>
+  </main>

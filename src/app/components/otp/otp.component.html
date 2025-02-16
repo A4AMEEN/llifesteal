@@ -1,0 +1,66 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-900">
+  <div class="w-full max-w-md p-8 bg-gray-800 border-4 border-green-500 rounded-lg shadow-xl">
+    <h2 class="text-3xl font-bold text-center text-green-400 mb-6">
+      Minecraft OTP Verification
+    </h2>
+
+    <form [formGroup]="otpForm" (ngSubmit)="onVerifyOtp()">
+      <div class="mb-4">
+        <label class="text-white">Enter OTP</label>
+        <input 
+          formControlName="otp" 
+          type="text" 
+          class="w-full p-3 mt-2 bg-gray-700 text-white border border-green-500 rounded-md text-center text-2xl"
+          placeholder="XXXXXX"
+          [disabled]="verifyDisabled"
+        />
+        
+        <!-- Error message when OTP expires -->
+        <p class="text-red-400 text-sm mt-1" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+
+        <p 
+          class="text-red-400 text-sm mt-1" 
+          *ngIf="otpForm.controls['otp'].invalid && otpForm.controls['otp'].touched"
+        >
+          OTP must be 6 digits.
+        </p>
+      </div>
+
+      <!-- Verify OTP Button -->
+      <button 
+        type="submit" 
+        class="w-full p-3 mt-4 font-bold rounded-md 
+               text-white transition duration-300"
+        [ngClass]="{
+          'bg-green-500 hover:bg-green-600': !verifyDisabled,
+          'bg-gray-600 cursor-not-allowed': verifyDisabled
+        }"
+        [disabled]="otpForm.invalid || verifyDisabled"
+      >
+        Verify OTP
+      </button>
+
+      <!-- Timer -->
+      <p class="text-center text-white mt-4">
+        Time left: 
+        <span class="text-green-400 font-bold">{{ timeLeft }}s</span>
+      </p>
+
+      <!-- Resend OTP Button -->
+      <button 
+        type="button" 
+        class="w-full p-3 mt-4 font-bold rounded-md transition duration-300"
+        [ngClass]="{
+          'bg-gray-600 hover:bg-gray-700': resendDisabled,
+          'bg-green-500 hover:bg-green-600': !resendDisabled
+        }"
+        (click)="onResendOtp()" 
+        [disabled]="resendDisabled"
+      >
+        Resend OTP
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+nav {
+    padding: 8px 0; /* Reduce top and bottom padding */
+}
+
+nav .container {
+    height: 60px; /* Adjust the height */
+}
+
+nav img {
+    height: 32px; /* Reduce logo and profile icon size */
+    width: auto;
+}
+
+nav .text-xl {
+    font-size: 1rem; /* Reduce font size */
+}
+
+nav .w-12.h-12 {
+    width: 36px; /* Reduce profile icon size */
+    height: 36px;
+}

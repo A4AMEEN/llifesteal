@@ -1,0 +1,114 @@
+<app-minecraft-header></app-minecraft-header>
+    
+<main class="min-h-screen bg-gray-900 pt-20 px-4 md:px-8 bg-[url('/assets/3858.jpg')] bg-cover bg-center">
+
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Available Trades</h1>
+        <p class="text-gray-300 text-lg">Browse and trade items with other players</p>
+      </div>
+    
+      <div class="max-w-6xl mx-auto bg-gray-900 rounded-lg p-3 border-4 border-green-600 shadow-xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full border-collapse border-4 border-green-600">
+            <thead>
+                <tr class="bg-green-700 border-b-4 border-green-800">
+                    <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Image</th>
+                    <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Item</th>
+                    <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Qty</th>
+                    <th colspan="2" class="px-3 py-2 text-center text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Price</th>
+                    <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Offer</th>
+                    <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white">Action</th>
+                </tr>
+                <tr class="bg-green-700 border-b-4 border-green-800">
+                    <th class="px-3 py-2 border-r-4 border-green-800"></th>
+                    <th class="px-3 py-2 border-r-4 border-green-800"></th>
+                    <th class="px-3 py-2 border-r-4 border-green-800"></th>
+                    <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">Ingots</th>
+                    <th class="px-3 py-2 text-left text-xs md:text-sm font-bold text-white border-r-4 border-green-800">IRL (₹)</th>
+                    <th class="px-3 py-2 border-r-4 border-green-800"></th>
+                    <th class="px-3 py-2"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y-4 divide-green-800">
+              <tr *ngFor="let trade of trades" class="bg-gray-800 hover:bg-green-900 transition-colors border-b-4 border-green-800">
+                  <!-- Image Column -->
+                  <td class="px-1 py-2 border-r-4 border-green-600 w-20 min-w-[5rem]">
+                      <div class="flex items-center justify-center">
+                          <img 
+                              *ngIf="trade.img" 
+                              [src]="'http://localhost:5000' + trade.img" 
+                              alt="Trade Item" 
+                              class="w-16 h-16 object-cover rounded"
+                          >
+                      </div>
+                  </td>
+                  <!-- Item Name -->
+                  <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                      <div class="flex items-center justify-center">
+                          {{ trade.itemName }}
+                      </div>
+                  </td>
+                  <!-- Quantity -->
+                  <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                      <div class="flex items-center justify-center">
+                          {{ trade.quantity }}
+                      </div>
+                  </td>
+                  <!-- Ingot Price -->
+                  <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                      <div class="flex items-center justify-center">
+                          {{ trade.price.ingot }}
+                      </div>
+                  </td>
+                  <!-- RS Price -->
+                  <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                      <div class="flex items-center justify-center">
+                          {{ trade.price.rs }}
+                      </div>
+                  </td>
+                  <!-- Offer -->
+                  <td class="px-3 py-2 text-xs md:text-sm text-gray-300 border-r-4 border-green-600">
+                      <div class="flex items-center justify-center">
+                          {{ trade.offer ? trade.offer : 'No Offer' }}
+                      </div>
+                  </td>
+                  <!-- Action Button -->
+                  <td class="px-3 py-2 text-xs md:text-sm">
+                      <div class="flex items-center justify-center">
+                          <button 
+                              *ngIf="!trade.stockOut"
+                              (click)="onTrade(trade)"
+                              class="bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 md:px-4 md:py-2 rounded border-2 border-green-600 transition-colors">
+                              Trade
+                          </button>
+                          <button 
+                              *ngIf="trade.stockOut"
+                              disabled
+                              class="bg-red-700 text-white px-3 py-1 md:px-4 md:py-2 rounded border-2 border-red-600 cursor-not-allowed">
+                              Out of Stock
+                          </button>
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+        
+        </div>
+      </div>
+
+      <app-trade-success-popup
+  *ngIf="showSuccessPopup"
+  (onClose)="showSuccessPopup = false"
+></app-trade-success-popup>
+
+      <app-trade-dialog
+        *ngIf="showTradeDialog"
+        [trade]="selectedTrade"
+        (onClose)="showTradeDialog = false"
+        (onTradeComplete)="onTradeComplete()"
+      ></app-trade-dialog>
+    </main>
+    
+    <footer class="bg-gray-800 text-white text-center py-4">
+      <p>&copy; 2024 Shakthi_PC Copyrights. All rights reserved.</p>
+    </footer>

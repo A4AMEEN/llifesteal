@@ -1,0 +1,36 @@
+<app-minecraft-header></app-minecraft-header>
+
+<!-- Main Container -->
+<main class="flex-1 bg-black min-h-screen flex flex-col">
+    <!-- Image Container -->
+    <div class="relative w-full h-screen pt-16"> <!-- pt-16 accounts for navbar height -->
+        <img src="assets/wp11847188-minecraft-lifesteal-smp-wallpapers.jpg" alt="Background"
+            class="w-full h-full object-cover">
+
+        <!-- Content Overlay -->
+        <div class="absolute inset-0 flex items-center justify-center pt-16"> <!-- pt-16 for navbar offset -->
+            <div class="text-center text-white bg-black/50 p-8 rounded-lg max-w-4xl mx-4">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">⚒️ Welcome to Mallu Trades ⚒️</h1>
+                <p class="text-lg md:text-xl mb-6">💰 The best place for secure and fair trading! 💎</p>
+                <p class="text-lg md:text-xl mb-6">📜 Make sure to read the **Server Rules** and **About Page** before trading.</p>
+                <p class="text-lg md:text-xl mb-8">🚀 Start your journey by exploring our trade listings!</p>
+                
+                <div class="flex justify-center space-x-4">
+                    <button (click)="goToAbout()"
+                        class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg text-lg transition-colors">
+                        📜 View Server Rules
+                    </button>
+                    <button (click)="goToTrades()"
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg text-lg transition-colors">
+                        🛒 Explore Trades
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white text-center py-4">
+    <p>&copy; 2024 Mallu Trades. All rights reserved.</p>
+</footer>

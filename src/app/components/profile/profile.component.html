@@ -1,0 +1,70 @@
+ <!-- Navigation Bar -->
+ <nav class="fixed w-full bg-gray-800 p-4 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Logo and Brand Name -->
+      <div class="flex items-center">
+        <img src="assets/removed-background.png" alt="Minecraft Logo" class="h-10 mr-2">
+        <span class="text-white text-xl font-bold">Mallu LifeSteal</span>
+      </div>
+
+      <!-- Navigation Links and Profile Icon -->
+      <div class="flex items-center space-x-6">
+        <!-- Navigation Links -->
+        <ul class="hidden md:flex space-x-6">
+          <li><a routerLink="/home" class="text-white hover:text-blue-400 transition-colors">Home</a></li>
+          <li><a routerLink="/about" class="text-white hover:text-blue-400 transition-colors">About</a></li>
+          <li><a routerLink="/servers" class="text-white hover:text-blue-400 transition-colors">Servers</a></li>
+          <li><a routerLink="/contact" class="text-white hover:text-blue-400 transition-colors">Contact</a></li>
+        </ul>
+
+        <!-- Profile Section -->
+        <div class="relative group">
+          <button (click)="handleProfileClick()" class="focus:outline-none flex flex-col items-center">
+            <img src="/assets/Igh0zt-Ios7-Style-Metro-Ui-MetroUI-Apps-Minecraft.512.png" alt="Profile"
+              class="w-12 h-12 rounded-full border-2 border-blue-400 hover:border-blue-500 transition-colors">
+            <span class="text-white text-sm mt-1 font-semibold">{{ username }}</span>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div *ngIf="isLoggedIn"
+            class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-600 rounded-t-lg">Profile</a>
+            <a routerLink="/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Trades</a>
+            <a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-600">About</a>
+            <a routerLink="/contact" class="block px-4 py-2 text-white hover:bg-gray-600">Contact</a>
+            <a href="#" (click)="logout()" class="block px-4 py-2 text-white hover:bg-red-500 rounded-b-lg">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <div class="pt-20">
+    <div class="flex min-h-screen bg-gray-100">
+      <!-- Sidebar -->
+      <div class="w-64 bg-gray-800 min-h-screen">
+        <div class="p-4">
+          <ul class="space-y-2">
+            <li>
+              <a routerLink="/dashboard/profile" routerLinkActive="bg-blue-600"
+                class="block px-4 py-2 text-white rounded hover:bg-gray-700 transition-colors">
+                <i class="fas fa-user mr-2"></i>Profile
+              </a>
+            </li>
+            <li>
+              <a routerLink="/dashboard/trades" routerLinkActive="bg-blue-600"
+                class="block px-4 py-2 text-white rounded hover:bg-gray-700 transition-colors">
+                <i class="fas fa-exchange-alt mr-2"></i>Trades
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="flex-1 p-8">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
