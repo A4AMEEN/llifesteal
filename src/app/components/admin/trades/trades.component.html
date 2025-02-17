@@ -30,7 +30,7 @@
                 <tbody class="divide-y-4 divide-green-800">
                     <tr *ngFor="let trade of trades" class="bg-gray-800 hover:bg-green-900 transition-colors border-b-4 border-green-800">
                         <td class="px-4 py-2 border-r-4 border-green-600">
-                            <img *ngIf="trade.img" [src]="'https://backend-rosy-eight-77.vercel.app' + trade.img" alt="Trade Item" class="w-16 h-16 object-cover rounded">
+                            <img *ngIf="trade.img" [src]="trade.img" alt="Trade Item" class="w-16 h-16 object-cover rounded">
                         </td>
                         <td class="px-4 py-2 text-sm text-gray-300 border-r-4 border-green-600">{{ trade.itemName }}</td>
                         <td class="px-4 py-2 text-sm text-gray-300 border-r-4 border-green-600">{{ trade.quantity }}</td>
