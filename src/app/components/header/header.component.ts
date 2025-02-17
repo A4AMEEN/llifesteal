@@ -4,21 +4,17 @@ import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-minecraft-header',
+  standalone: false,
   templateUrl: './header.component.html',
-  standalone:false,
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
   username: string = 'Guest';
   isLoggedIn: boolean = false;
+  showDropdown: boolean = false;  // Add this property
 
-  isMenuOpen = true; // Menu state
   constructor(private router: Router, private authService: PlayerService) {
     this.checkUserStatus();
-  }
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen; // Toggle menu open/close
   }
 
   checkUserStatus() {
@@ -34,9 +30,12 @@ export class HeaderComponent {
       next: () => {
         this.isLoggedIn = false;
         this.username = 'Guest';
+        this.showDropdown = false;  // Close dropdown on logout
         this.router.navigate(['/home']);
       },
-      error: (err: any) => console.error('Logout failed:', err)
+      error: (err: any) => {
+        console.error('Logout failed:', err);
+      }
     });
   }
 
@@ -46,5 +45,15 @@ export class HeaderComponent {
     } else {
       this.router.navigate(['/profile']);
     }
+  }
+  
+  goToTrades() {
+    console.log("hhahahahahhaa");
+    this.router.navigate(['/trades']);
+  }
+  
+  goToAbout() {
+    console.log("hhahahahahhaa");
+    this.router.navigate(['/about']);
   }
 }

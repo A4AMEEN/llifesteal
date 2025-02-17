@@ -19,3 +19,30 @@ nav .w-12.h-12 {
     width: 36px; /* Reduce profile icon size */
     height: 36px;
 }
+/* Add any custom styles here */
+.dropdown-enter-active, .dropdown-leave-active {
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  
+  .dropdown-enter, .dropdown-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  
+  /* Handle mouse precision for dropdown */
+  nav button:focus {
+    outline: none;
+  }
+  
+  /* Optional: Add cool Minecraft-inspired styles */
+  nav {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  @media (max-width: 768px) {
+    .profile-dropdown {
+      position: absolute;
+      right: 0;
+      top: 100%;
+    }
+  }
