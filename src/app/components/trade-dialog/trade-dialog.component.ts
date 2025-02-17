@@ -16,7 +16,7 @@ import { TradeService } from '../../services/trades.service';
             [(ngModel)]="quantity" 
             (ngModelChange)="calculatePrice()" 
             min="1" 
-            [max]="trade.quantity"
+            max="5"
             class="w-full bg-gray-700 text-white rounded p-2 border border-green-600">
         </div>
 
