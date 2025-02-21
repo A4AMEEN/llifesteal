@@ -12,6 +12,7 @@ export class HeaderComponent {
   username: string = 'Guest';
   isLoggedIn: boolean = false;
   showDropdown: boolean = false;  // Add this property
+  isDropdownOpen: boolean = false;
 
   constructor(private router: Router, private authService: PlayerService) {
     this.checkUserStatus();
@@ -24,7 +25,14 @@ export class HeaderComponent {
       this.isLoggedIn = true;
     }
   }
-
+  toggleDropdown(): void {
+    if (this.isLoggedIn) {
+        this.isDropdownOpen = !this.isDropdownOpen;
+    } else {
+        // Redirect to login or show login modal
+        this.handleProfileClick();
+    }
+}
   logout() {
     this.authService.logout().subscribe({
       next: () => {

@@ -4,8 +4,8 @@
         <!-- Logo and Brand Name -->
         <a href="/home" class="block">
             <div class="flex items-center">
-                <img src="assets/removed-background.png" alt="Minecraft Logo" class="h-10 mr-2">
-                <span class="text-white text-xl font-bold">Mallu LifeSteal</span>
+                <img src="assets/removed-background.png" alt="Minecraft Logo" class="h-8 mr-2">
+                <span class="text-white text-base font-bold">Mallu LifeSteal</span>
             </div>
         </a>
         
@@ -19,17 +19,17 @@
                 <li><a routerLink="/contact" class="text-white hover:text-blue-400 transition-colors">Contact</a></li>
             </ul>
 
-            <!-- Profile Section with Improved Hover -->
-            <div class="relative" (mouseenter)="showDropdown = true" (mouseleave)="showDropdown = false">
-                <button (click)="handleProfileClick()" class="focus:outline-none flex flex-col items-center">
+            <!-- Profile Section with Click Instead of Hover -->
+            <div class="relative">
+                <button (click)="toggleDropdown()" class="focus:outline-none flex flex-col items-center">
                     <img src="/assets/Igh0zt-Ios7-Style-Metro-Ui-MetroUI-Apps-Minecraft.512.png" alt="Profile"
-                        class="w-12 h-12 rounded-full border-2 border-blue-400 hover:border-blue-500 transition-colors">
+                        class="w-9 h-9 rounded-full border-2 border-blue-400 hover:border-blue-500 transition-colors">
                     <span class="text-white text-sm mt-1 font-semibold">{{ username }}</span>
                 </button>
 
                 <!-- Dropdown Menu -->
-                <div *ngIf="isLoggedIn && showDropdown"
-                    class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg transition-opacity duration-200">
+                <div *ngIf="isLoggedIn && isDropdownOpen"
+                    class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg">
                     <a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-600 rounded-t-lg">Profile</a>
                     <a routerLink="/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Trades</a>
                     <a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-600">About</a>

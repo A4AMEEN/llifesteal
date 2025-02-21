@@ -1,48 +1,39 @@
 nav {
-    padding: 8px 0; /* Reduce top and bottom padding */
+  padding: 8px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 nav .container {
-    height: 60px; /* Adjust the height */
+  height: 60px;
 }
 
 nav img {
-    height: 32px; /* Reduce logo and profile icon size */
-    width: auto;
+  height: 32px;
+  width: auto;
 }
 
 nav .text-xl {
-    font-size: 1rem; /* Reduce font size */
+  font-size: 1rem;
 }
 
-nav .w-12.h-12 {
-    width: 36px; /* Reduce profile icon size */
-    height: 36px;
+nav .w-9.h-9 {
+  width: 36px;
+  height: 36px;
 }
-/* Add any custom styles here */
+
+/* Animation for dropdown */
 .dropdown-enter-active, .dropdown-leave-active {
-    transition: opacity 0.3s, transform 0.3s;
-  }
-  
-  .dropdown-enter, .dropdown-leave-to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  
-  /* Handle mouse precision for dropdown */
-  nav button:focus {
-    outline: none;
-  }
-  
-  /* Optional: Add cool Minecraft-inspired styles */
-  nav {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  }
-  
-  @media (max-width: 768px) {
-    .profile-dropdown {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.dropdown-enter, .dropdown-leave-to {
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .profile-dropdown {
       position: absolute;
       right: 0;
       top: 100%;
-    }
   }
+}
