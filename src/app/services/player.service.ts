@@ -19,7 +19,7 @@ export class PlayerService {
   // Hardcoded admin credentials
   private adminCredentials: { email: string; password: string; code: string }[] = [
     { email: 'shakthi@lifesteal.com', password: 'password', code: '122333' },
-    { email: 'practice@example.com', password: 'password', code: '122333' },
+    { email: 'practice@lifesteal.com', password: 'password', code: '122333' },
     { email: 'fearxlifesteal@gmail.com', password: 'password', code: '122333' },
   ];
 
@@ -88,10 +88,35 @@ export class PlayerService {
   }
 
   private generateAdminToken(email: string): string {
-    return btoa(`${email}:admin-token-${Date.now()}`);
+    return btoa(`admin-${email}-${Date.now()}`);
   }
 
-  // Save admin token
+  adminLogin(email: string, password: string, adminCode: string): Observable<any> {
+    return new Observable(observer => {
+      const admin = this.adminCredentials.find(
+        admin => admin.email === email && 
+                 admin.password === password && 
+                 admin.code === adminCode
+      );
+
+      if (admin) {
+        const adminToken = this.generateAdminToken(email);
+        this.setAdminToken(adminToken);
+        this.setUser({ email, role: 'admin' });
+
+        observer.next({ 
+          success: true, 
+          token: adminToken, 
+          role: 'admin',
+          user: { email, role: 'admin' }
+        });
+      } else {
+        observer.error(new Error('Invalid admin credentials'));
+      }
+      observer.complete();
+    });
+  }
+
   setAdminToken(token: string) {
     if (this.isBrowser) {
       localStorage.setItem(this.adminTokenKey, token);
@@ -104,39 +129,14 @@ export class PlayerService {
     }
     return localStorage.getItem(this.adminTokenKey);
   }
-  
-  adminLogin(email: string, password: string, adminCode: string): Observable<any> {
-    return new Observable(observer => {
-      const admin = this.adminCredentials.find(
-        admin => admin.email === email && admin.password === password && admin.code === adminCode
-      );
 
-      if (admin) {
-        const adminToken = this.generateAdminToken(email);
-        this.setAdminToken(adminToken);
-        this.setUser({ email, role: 'admin' });
-
-        observer.next({ success: true, token: adminToken, role: 'admin' });
-      } else {
-        observer.error(new Error('Invalid admin credentials'));
-      }
-      observer.complete();
-    });
-  }
-
-  // More robust admin check
   isAdmin(): boolean {
     if (!this.isBrowser) {
       return false;
     }
     const user = this.getUser();
     const token = this.getAdminToken();
-    console.log("he is admin ", token, user);
-    
-    const result = user?.role === 'admin' && token !== null && token !== '';
-    console.log("result", result);
-    
-    return result;
+    return user?.role === 'admin' && token !== null && token !== '';
   }
 
   login(email: string, password: string): Observable<any> {

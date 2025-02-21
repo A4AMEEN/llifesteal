@@ -43,10 +43,10 @@
                     formControlName="adminCode" 
                     type="text" 
                     class="w-full p-3 mt-2 bg-gray-800/70 text-white border border-green-500 rounded-xl focus:ring focus:ring-green-400"
-                    placeholder="Enter your 4-digit admin code"
+                    placeholder="Enter your 6-digit admin code"
                 />
                 <p class="text-red-400 text-sm mt-1" *ngIf="authForm.controls['adminCode'].invalid && authForm.controls['adminCode'].touched">
-                    Enter a valid 4-digit code.
+                    Enter a valid 6-digit code.
                 </p>
             </div>
 

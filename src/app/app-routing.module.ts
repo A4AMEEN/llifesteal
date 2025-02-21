@@ -17,6 +17,7 @@ import { UserProfileComponent } from './components/profile/user-profile/user-pro
 import { UserTradesComponent } from './components/profile/user-trades/user-trades.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
 
 const routes: Routes = [
   { path: '', component: MinecraftHomeComponent },
@@ -29,10 +30,15 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
   { path: 'admin/auth', component: AuthComponent, canActivate: [AdminGuard] },
   {
-    path: 'admin-dashboard', component: DashboardComponent, children: [
+    path: 'admin-dashboard',
+    component: DashboardComponent,
+    canActivate: [AdminAuthGuard],
+    canActivateChild: [AdminAuthGuard],
+    children: [
       { path: 'players', component: PlayerListComponent },
       { path: 'trades', component: TradeComponent },
       { path: 'dashboard', component: TradingComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
   {
