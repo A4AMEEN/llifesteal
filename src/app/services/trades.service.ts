@@ -7,7 +7,7 @@ import { PlayerService } from './player.service';
   providedIn: 'root'
 })
 export class TradeService {
-  private apiUrl = 'https://backend-rosy-eight-77.vercel.app/api/trades'; // Backend API URL
+  private apiUrl = 'http://3.93.216.119:5000/api/trades'; // Backend API URL
 
   constructor(private http: HttpClient, private authService: PlayerService) { }
 

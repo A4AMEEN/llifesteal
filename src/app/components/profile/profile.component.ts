@@ -12,14 +12,18 @@ export class ProfileComponent implements OnInit{
   constructor(private authService:PlayerService){
 
   }
-  username: string = 'Player123'; // Replace with actual username
+  userData: any = 'Guest'; // Replace with actual username
   isLoggedIn: boolean = true; // Replace with actual auth state
+  getUserData() {
+    this.userData = this.authService.getUser();
+    console.log(this.userData);
+  }
   handleProfileClick() {
     // Handle profile click
     console.log('Profile clicked');
   }
   ngOnInit(): void {
-      
+    this.getUserData()
   }
 
   isloggedIn(){
