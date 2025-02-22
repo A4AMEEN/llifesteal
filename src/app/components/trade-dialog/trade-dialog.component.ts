@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TradeService } from '../../services/trades.service';
+import { PlayerService } from '../../services/player.service';
+import { max } from 'rxjs';
 
 @Component({
   selector: 'app-trade-dialog',
@@ -73,27 +75,48 @@ export class TradeDialogComponent {
   totalPrice = 0;
   basePrice = 0;
   isLoading = false;
-
-  constructor(private tradeService: TradeService) { }
+  userData:any
+  max: number = 5;
+  constructor(private tradeService: TradeService,private playerService:PlayerService) { }
 
   ngOnInit() {
     this.calculatePrice();
+    this.getUserData()
+    this.maxtrade()
   }
   errorMessage = '';
   calculatePrice() {
-    if (this.quantity > 5) {
-      this.errorMessage = 'You can trade a maximum of 5 stacks per Trading.';
+    if (this.quantity > this.max) {
+      this.errorMessage = `You can trade a maximum of ${this.max} stacks per Trading.`;
     } else {
       this.errorMessage = '';
       this.basePrice = this.paymentMethod === 'ingot' ? this.trade.price.ingot : this.trade.price.rs;
       this.totalPrice = this.basePrice * this.quantity;
     }
   }
+  
+  getUserData() {
+    this.userData = this.playerService.getUser();
+    console.log("userdata", this.userData);
+  
+    if (this.userData) {
+      this.maxtrade(); // Ensure maxtrade() runs only after userData is available
+    }
+  }
+  
+  maxtrade() {
+    if (this.userData?.totalTrades > 0) {
+      console.log("Existing trades:", this.userData.totalTrades);
+      this.max = 20;
+    } else {
+      this.max = 5;
+    }
+  }
 
   isValidTrade(): boolean {
-    return this.quantity > 0 &&
+    return this.quantity > 0 &&this.userData.totalTrades==0&&
       this.quantity <= this.trade.quantity &&
-      this.quantity <= 5 &&  // Ensure quantity is 5 or below
+      this.quantity <= this.max &&  // Ensure quantity is 5 or below
       this.totalPrice > 0;
   }
 
