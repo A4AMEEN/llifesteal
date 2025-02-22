@@ -1,18 +1,45 @@
-import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PlayerService } from '../../../services/player.service';
-
+interface NavItem {
+  route: string;
+  icon: string;
+  label: string;
+}
 @Component({
   selector: 'app-sidebar',
   standalone: false,
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent {
-  isCollapsed = false;
-  isSidebarOpen = true;
-  isMobile = false;
+
+export class SidebarComponent implements OnInit,OnDestroy {
+  // isCollapsed = false;
+  // isSidebarOpen = true;
+  // isMobile = false;
   private isBrowser: boolean;
+
+  isCollapsed = false;
+  isMobile = window.innerWidth < 1024;
+  isSidebarOpen = !this.isMobile;
+
+  navItems: NavItem[] = [
+    {
+      route: '/admin-dashboard/dashboard',
+      icon: 'dashboard',
+      label: 'Dashboard'
+    },
+    {
+      route: '/admin-dashboard/players',
+      icon: 'people',
+      label: 'Players'
+    },
+    {
+      route: '/admin-dashboard/trades',
+      icon: 'swap_horiz',
+      label: 'Trades'
+    }
+  ];
 
   constructor(
     private authService: PlayerService,
@@ -27,6 +54,14 @@ export class SidebarComponent {
       this.isMobile = false;
       this.isSidebarOpen = true;
     }
+  }
+
+  ngOnInit() {
+    window.addEventListener('resize', this.handleResize.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.handleResize.bind(this));
   }
 
   toggleSidebar() {
@@ -52,6 +87,13 @@ export class SidebarComponent {
       } else {
         this.isSidebarOpen = true;
       }
+    }
+  }
+
+  private handleResize() {
+    this.isMobile = window.innerWidth < 1024;
+    if (!this.isMobile) {
+      this.isSidebarOpen = true;
     }
   }
 

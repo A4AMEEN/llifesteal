@@ -1,40 +1,37 @@
-<!-- sidebar.component.html -->
-<div class="h-screen bg-gray-800 shadow-md transition-all duration-300 ease-in-out fixed lg:relative z-50"
-     [class.w-64]="!isCollapsed"
-     [class.w-16]="isCollapsed"
-     [class.-translate-x-full]="isMobile && !isSidebarOpen"
-     [class.translate-x-0]="isMobile && isSidebarOpen">
+<aside class="h-screen bg-gray-800 shadow-lg transition-all duration-300 fixed lg:relative z-50"
+       [class.w-64]="!isCollapsed"
+       [class.w-16]="isCollapsed"
+       [class.-translate-x-full]="isMobile && !isSidebarOpen"
+       [class.translate-x-0]="!isMobile || isSidebarOpen">
     
-    <!-- Toggle Button -->
-    <button (click)="toggleSidebar()" class="p-3 text-white hover:bg-gray-700 w-full text-left flex items-center justify-between">
-        <span class="material-icons">menu</span>
-        <span *ngIf="!isCollapsed" class="ml-2">Collapse</span>
-    </button>
+    <div class="flex flex-col h-full">
+        <!-- Header -->
+        <div class="p-4 flex items-center justify-between">
+            <span class="text-white font-bold" *ngIf="!isCollapsed">Admin Panel</span>
+            <button (click)="toggleSidebar()" 
+                    class="text-white hover:bg-gray-700 p-2 rounded">
+                <span class="material-icons">{{isCollapsed ? 'menu' : 'close'}}</span>
+            </button>
+        </div>
 
-    <!-- Navigation Links -->
-    <nav class="mt-6">
-        <a routerLink="/admin-dashboard/dashboard" routerLinkActive="bg-gray-700" 
-           class="flex items-center p-3 text-white hover:bg-gray-700 transition-colors duration-200">
-            <span class="material-icons">dashboard</span>
-            <span *ngIf="!isCollapsed" class="ml-3">Dashboard</span>
-        </a>
-        
-        <a routerLink="/admin-dashboard/players" routerLinkActive="bg-gray-700"
-           class="flex items-center p-3 text-white hover:bg-gray-700 transition-colors duration-200">
-            <span class="material-icons">people</span>
-            <span *ngIf="!isCollapsed" class="ml-3">Players</span>
-        </a>
-        
-        <a routerLink="/admin-dashboard/trades" routerLinkActive="bg-gray-700"
-           class="flex items-center p-3 text-white hover:bg-gray-700 transition-colors duration-200">
-            <span class="material-icons">swap_horiz</span>
-            <span *ngIf="!isCollapsed" class="ml-3">Trades</span>
-        </a>
-        
-        <button (click)="logout()" 
-                class="flex items-center w-full p-3 text-white hover:bg-red-700 transition-colors duration-200">
-            <span class="material-icons">logout</span>
-            <span *ngIf="!isCollapsed" class="ml-3">Logout</span>
-        </button>
-    </nav>
-</div>
+        <!-- Navigation -->
+        <nav class="flex-1 py-4">
+            <a *ngFor="let item of navItems" 
+               [routerLink]="item.route" 
+               routerLinkActive="bg-gray-700"
+               class="flex items-center px-4 py-3 text-white hover:bg-gray-700 transition-colors">
+                <span class="material-icons">{{item.icon}}</span>
+                <span *ngIf="!isCollapsed" class="ml-3">{{item.label}}</span>
+            </a>
+        </nav>
+
+        <!-- Footer -->
+        <div class="p-4">
+            <button (click)="logout()" 
+                    class="w-full flex items-center px-4 py-2 text-white hover:bg-red-700 transition-colors rounded">
+                <span class="material-icons">logout</span>
+                <span *ngIf="!isCollapsed" class="ml-3">Logout</span>
+            </button>
+        </div>
+    </div>
+</aside>
