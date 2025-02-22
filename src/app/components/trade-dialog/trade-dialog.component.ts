@@ -111,14 +111,17 @@ export class TradeDialogComponent {
     } else {
       this.max = 5;
     }
+    console.log("max");
+    
   }
 
   isValidTrade(): boolean {
-    return this.quantity > 0 &&this.userData.totalTrades==0&&
+    return this.quantity > 0 &&
       this.quantity <= this.trade.quantity &&
       this.quantity <= this.max &&  // Ensure quantity is 5 or below
       this.totalPrice > 0;
   }
+
 
 
   confirmTrade() {
