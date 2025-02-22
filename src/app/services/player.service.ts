@@ -10,7 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class PlayerService {
   private tokenKey = 'authToken';
   private userKey = 'userData';
-  private apiUrl = 'https://backend-rosy-eight-77.vercel.app/api/auth';
+  private apiUrl = 'https://backend-1whk1yfze-a4ameens-projects.vercel.app/api/auth';
   private linkedApiUrl = 'http://api.mallulifesteal.fun/api/linked';
   private apiKey = 'mallu-public-api-key';
   private adminTokenKey = 'adminToken';
