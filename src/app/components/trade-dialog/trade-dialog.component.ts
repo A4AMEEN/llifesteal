@@ -10,15 +10,17 @@ import { TradeService } from '../../services/trades.service';
         <h2 class="text-2xl text-white mb-4">Trade {{trade.itemName}}</h2>
         
         <div class="mb-4">
-          <label class="block text-white mb-2">Quantity (Stacks)</label>
-          <input 
-            type="number" 
-            [(ngModel)]="quantity" 
-            (ngModelChange)="calculatePrice()" 
-            min="1" 
-            max="5"
-            class="w-full bg-gray-700 text-white rounded p-2 border border-green-600">
-        </div>
+  <label class="block text-white mb-2">Quantity (Stacks)</label>
+  <input
+    type="number"
+    [(ngModel)]="quantity"
+    (ngModelChange)="calculatePrice()"
+    min="1"
+    max="5"
+    class="w-full bg-gray-700 text-white rounded p-2 border border-green-600">
+  <p *ngIf="errorMessage" class="text-red-500 mt-1">{{ errorMessage }}</p>
+</div>
+
 
         <div class="mb-4">
           <label class="block text-white mb-2">Payment Method</label>
@@ -72,22 +74,29 @@ export class TradeDialogComponent {
   basePrice = 0;
   isLoading = false;
 
-  constructor(private tradeService: TradeService) {}
+  constructor(private tradeService: TradeService) { }
 
   ngOnInit() {
     this.calculatePrice();
   }
-
+  errorMessage = '';
   calculatePrice() {
-    this.basePrice = this.paymentMethod === 'ingot' ? this.trade.price.ingot : this.trade.price.rs;
-    this.totalPrice = this.basePrice * this.quantity;
+    if (this.quantity > 5) {
+      this.errorMessage = 'You can trade a maximum of 5 stacks per Trading.';
+    } else {
+      this.errorMessage = '';
+      this.basePrice = this.paymentMethod === 'ingot' ? this.trade.price.ingot : this.trade.price.rs;
+      this.totalPrice = this.basePrice * this.quantity;
+    }
   }
 
   isValidTrade(): boolean {
-    return this.quantity > 0 && 
-           this.quantity <= this.trade.quantity && 
-           this.totalPrice > 0;
+    return this.quantity > 0 &&
+      this.quantity <= this.trade.quantity &&
+      this.quantity <= 5 &&  // Ensure quantity is 5 or below
+      this.totalPrice > 0;
   }
+
 
   confirmTrade() {
     if (!this.isValidTrade() || this.isLoading) return;
