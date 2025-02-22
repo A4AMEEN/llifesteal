@@ -42,6 +42,99 @@
             </div>
         </div>
     </div>
+    <div *ngIf="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg w-[500px]">
+            <h3 class="text-white text-xl font-semibold mb-4">
+                {{ isEditMode ? 'Edit Trade' : 'Add Trade' }}
+            </h3>
+            <div class="flex space-x-4">
+                <!-- Image Preview -->
+                <div class="w-1/3">
+                    <img *ngIf="isEditMode && selectedTrade?.img" 
+                         [src]="selectedTrade.img.startsWith('http') ? selectedTrade.img : 'https://backend-rosy-eight-77.vercel.app' + selectedTrade.img" 
+                         alt="Trade Item" 
+                         class="w-full h-48 object-cover rounded mb-4">
+                    <img *ngIf="!isEditMode && newTrade.image" 
+                         [src]="URL.createObjectURL(newTrade.image)" 
+                         alt="New Trade Item" 
+                         class="w-full h-48 object-cover rounded mb-4">
+                </div>
+                
+                <!-- Form Fields -->
+                <div class="w-2/3">
+                    <!-- Add Trade Form -->
+                    <div *ngIf="!isEditMode">
+                        <input type="text" 
+                               [(ngModel)]="newTrade.item" 
+                               placeholder="Item Name" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="number" 
+                               [(ngModel)]="newTrade.quantity" 
+                               placeholder="Quantity" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="number" 
+                               [(ngModel)]="newTrade.priceIngots" 
+                               placeholder="Price in Ingots" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="number" 
+                               [(ngModel)]="newTrade.priceIRL" 
+                               placeholder="Price in INR (₹)" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="text" 
+                               [(ngModel)]="newTrade.offer" 
+                               placeholder="Offer Details" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                    </div>
+
+                    <!-- Edit Trade Form -->
+                    <div *ngIf="isEditMode">
+                        <input type="text" 
+                               [(ngModel)]="selectedTrade.itemName" 
+                               placeholder="Item Name" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="number" 
+                               [(ngModel)]="selectedTrade.quantity" 
+                               placeholder="Quantity" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="number" 
+                               [(ngModel)]="selectedTrade.price.ingot" 
+                               placeholder="Price in Ingots" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="number" 
+                               [(ngModel)]="selectedTrade.price.rs" 
+                               placeholder="Price in INR (₹)" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                
+                        <input type="text" 
+                               [(ngModel)]="selectedTrade.offer" 
+                               placeholder="Offer Details" 
+                               class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                    </div>
+
+                    <input type="file" 
+                           (change)="onImageChange($event)" 
+                           class="w-full p-2 rounded mb-2 bg-gray-700 text-white" />
+                </div>
+            </div>
+            <div class="flex justify-end space-x-2 mt-4">
+                <button (click)="isEditMode ? onEdit() : submitTrade()" 
+                        class="bg-green-600 px-4 py-2 text-white rounded">
+                    {{ isEditMode ? 'Update' : 'Submit' }}
+                </button>
+                <button (click)="isModalOpen = false" 
+                        class="bg-red-600 px-4 py-2 text-white rounded">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Desktop Table View -->
     <div class="hidden sm:block bg-gray-900 rounded-lg border-4 border-green-600 shadow-xl overflow-hidden">
