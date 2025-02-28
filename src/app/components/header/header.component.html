@@ -1,43 +1,44 @@
-<!-- Navigation Bar -->
-<nav class="fixed w-full bg-gray-800 p-4 z-50">
-    <div class="container mx-auto flex justify-between items-center">
-        <!-- Logo and Brand Name -->
-        <a href="/home" class="block">
-            <div class="flex items-center">
-                <img src="assets/removed-background.png" alt="Minecraft Logo" class="h-8 mr-2">
-                <span class="text-white text-base font-bold">Mallu LifeSteal</span>
-            </div>
-        </a>
-        
-        <!-- Navigation Links and Profile Icon -->
-        <div class="flex items-center space-x-6">
-            <!-- Navigation Links -->
-            <ul class="hidden md:flex space-x-6">
-                <li><a routerLink="/home" class="text-white hover:text-blue-400 transition-colors">Home</a></li>
-                <li><a routerLink="/about" class="text-white hover:text-blue-400 transition-colors">About</a></li>
-                <li><a routerLink="/trades" class="text-white hover:text-blue-400 transition-colors">Trades</a></li>
-                <li><a routerLink="/contact" class="text-white hover:text-blue-400 transition-colors">Contact</a></li>
-            </ul>
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full bg-gray-800 p-4 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo and Brand Name -->
+            <a href="/home" class="block">
+                <div class="flex items-center">
+                    <img src="assets/removed-background.png" alt="Minecraft Logo" class="h-8 mr-2">
+                    <span class="text-white text-base font-bold">Mallu LifeSteal</span>
+                </div>
+            </a>
+            
+            <!-- Navigation Links and Profile Icon -->
+            <div class="flex items-center space-x-6">
+                <!-- Navigation Links -->
+                 
+                <ul class="hidden md:flex space-x-6">
+                    <li><a routerLink="/home" class="text-white hover:text-blue-400 transition-colors">Home</a></li>
+                    <li><a routerLink="/about" class="text-white hover:text-blue-400 transition-colors">About</a></li>
+                    <li><a routerLink="/dashboard/trades" class="text-white hover:text-blue-400 transition-colors">Your Trades</a></li>
+                    <li><a routerLink="/contact" class="text-white hover:text-blue-400 transition-colors">Contact</a></li>
+                </ul>
 
-            <!-- Profile Section with Click Instead of Hover -->
-            <div class="relative">
-                <button (click)="toggleDropdown()" class="focus:outline-none flex flex-col items-center">
-                    <img src="/assets/Igh0zt-Ios7-Style-Metro-Ui-MetroUI-Apps-Minecraft.512.png" alt="Profile"
-                        class="w-9 h-9 rounded-full border-2 border-blue-400 hover:border-blue-500 transition-colors">
-                    <span class="text-white text-sm mt-1 font-semibold">{{ username }}</span>
-                </button>
+                <!-- Profile Section with Click Instead of Hover -->
+                <div class="relative">
+                    <button (click)="toggleDropdown()" class="focus:outline-none flex flex-col items-center">
+                        <img src="/assets/Igh0zt-Ios7-Style-Metro-Ui-MetroUI-Apps-Minecraft.512.png" alt="Profile"
+                            class="w-9 h-9 rounded-full border-2 border-blue-400 hover:border-blue-500 transition-colors">
+                        <span class="text-white text-sm mt-1 font-semibold">{{ username }}</span>
+                    </button>
 
-                <!-- Dropdown Menu -->
-                <div *ngIf="isLoggedIn && isDropdownOpen"
-                    class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg">
-                    <a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-600 rounded-t-lg">Profile</a>
-                    <a routerLink="/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Trades</a>
-                    <a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-600">About</a>
-                    <a routerLink="/contact" class="block px-4 py-2 text-white hover:bg-gray-600">Contact</a>
-                    <a href="#" (click)="logout(); $event.preventDefault();"
-                        class="block px-4 py-2 text-white hover:bg-red-500 rounded-b-lg">Logout</a>
+                    <!-- Dropdown Menu -->
+                    <div *ngIf="isLoggedIn && isDropdownOpen"
+                        class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg">
+                        <a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-600 rounded-t-lg">Profile</a>
+                        <a routerLink="/dashboard/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Your Trades</a>
+                        <a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-600">About</a>
+                        <a routerLink="/contact" class="block px-4 py-2 text-white hover:bg-gray-600">Contact</a>
+                        <a href="#" (click)="logout(); $event.preventDefault();"
+                            class="block px-4 py-2 text-white hover:bg-red-500 rounded-b-lg">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>

@@ -10,13 +10,12 @@ export class AdminGuard implements CanActivate {
   constructor(private playerService: PlayerService, private router: Router) {}
 
   canActivate(): boolean {
+    // If admin token exists, allow direct access to admin dashboard
     if (this.playerService.getAdminToken()) {
-      console.log("this.playerService.getAdminToken()",this.playerService.getAdminToken());
-      
-      // If the admin is already logged in, prevent access to login/signup
-      this.router.navigate(['/admin-dashboard']); // Redirect to admin dashboard
-      return false;
+      // Check if this is a valid admin token before redirecting
+      // This part depends on how you validate admin tokens
+      return true; // Allow access to login page
     }
-    return true;
+    return true; // Allow access to login page even if no token
   }
 }

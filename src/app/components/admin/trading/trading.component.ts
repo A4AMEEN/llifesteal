@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TradeService } from '../../../services/trades.service';
+import { PlayerService } from '../../../services/player.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-admin-trades',
@@ -8,11 +10,15 @@ import { TradeService } from '../../../services/trades.service';
 })
 export class TradingComponent implements OnInit {
   trades: any[] = [];
+  admin:any
 
-  constructor(private tradeService: TradeService) {}
+  constructor(private tradeService: TradeService, private authService:PlayerService) {}
 
   ngOnInit() {
     this.loadTrades();
+    this.admin=this.authService.getAdminData()
+    console.log('admin',this.admin);
+    
   }
 
   loadTrades() {
@@ -41,6 +47,20 @@ export class TradingComponent implements OnInit {
     });
   }
 
+  updateTrader(tradeId: string, event: any) {
+    const newTrader = event.target.value;
+    this.tradeService.updateTrader(tradeId, newTrader).subscribe({
+      next: (response) => {
+        console.log('Trader updated successfully', response);
+        this.loadTrades(); // Refresh the trades list after update
+      },
+      error: (error) => {
+        console.error('Error updating trader:', error);
+      }
+    });
+  }
+  
+
   getStatusClass(status: string): string {
     const baseClasses = 'px-2 py-1 text-xs font-medium rounded-full';
     switch (status) {
@@ -56,4 +76,21 @@ export class TradingComponent implements OnInit {
         return `${baseClasses} bg-gray-500 text-gray-900`;
     }
   }
+  getTraderClass(trader: string): string {
+    const baseClasses = 'px-2 py-1 text-xs font-medium rounded-full';
+    switch (trader) {
+      case 'Shakthi':
+        return `${baseClasses} bg-blue-500 text-white`;
+      case 'Practice':
+        return `${baseClasses} bg-black text-white`;
+      case 'FearX':
+        return `${baseClasses} bg-white text-black border border-gray-400`;
+      case 'Finding':
+        return `${baseClasses} bg-yellow-500 text-yellow-900`;
+      default:
+        return `${baseClasses} bg-gray-500 text-gray-900`; // Default for "Accept"
+    }
+  }
+  
+  
 }

@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class PlayerService {
   private tokenKey = 'authToken';
   private userKey = 'userData';
+  //private apiUrl = 'http://localhost:5000/api/auth';
   private apiUrl = 'https://backend-rosy-eight-77.vercel.app/api/auth';
   private linkedApiUrl = 'http://api.mallulifesteal.fun/api/linked';
   private apiKey = 'mallu-public-api-key';
@@ -17,10 +18,10 @@ export class PlayerService {
   private isBrowser: boolean;
 
   // Hardcoded admin credentials
-  private adminCredentials: { email: string; password: string; code: string }[] = [
-    { email: 'shakthi@lifesteal.com', password: 'password', code: '122333' },
-    { email: 'practice@lifesteal.com', password: 'password', code: '122333' },
-    { email: 'fearxlifesteal@gmail.com', password: 'password', code: '122333' },
+  private adminCredentials: { email: string; password: string; code: string; name: string }[] = [
+    { email: 'shakthi@lifesteal.com', password: 'password', code: '122333', name: 'Shakthi' },
+    { email: 'practice@lifesteal.com', password: 'password', code: '122333', name: 'Practice' },
+    { email: 'fearxlifesteal@gmail.com', password: 'password', code: '122333', name: 'FearX' },
   ];
 
   constructor(
@@ -75,6 +76,11 @@ export class PlayerService {
     }
     const token = this.getToken();
     return token !== null && token !== '';
+  }
+
+  getAdminData(): { email: string; role: string; name: string } | null {
+    const adminData = localStorage.getItem('adminData');
+    return adminData ? JSON.parse(adminData) : null;
   }
 
   isAdminLoggedIn(): boolean {

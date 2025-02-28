@@ -7,7 +7,9 @@ import { PlayerService } from './player.service';
   providedIn: 'root'
 })
 export class TradeService {
-  private apiUrl = 'https://backend-rosy-eight-77.vercel.app/api/trades'; // Backend API URL
+  private apiUrl = 'https://backend-rosy-eight-77.vercel.app/api/trades';
+  //private apiUrl = 'http://localhost:5000/api/trades';
+   // Backend API URL
 
   constructor(private http: HttpClient, private authService: PlayerService) { }
 
@@ -73,6 +75,11 @@ export class TradeService {
   updateTradeStatus(tradeId: string, status: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/status/${tradeId}`, { status });
   }
+
+  updateTrader(tradeId: string, newTrader: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/trader/${tradeId}`, { trader: newTrader });
+  }
+  
 
   updateTrade(id: string, tradeData: FormData): Observable<any> {
     return this.http.put(`${this.apiUrl}/update/${id}`, tradeData);

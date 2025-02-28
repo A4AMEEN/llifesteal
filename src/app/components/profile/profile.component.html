@@ -1,50 +1,89 @@
- <!-- Navigation Bar -->
- <nav class="fixed w-full bg-gray-800 p-4 z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      <!-- Logo and Brand Name -->
-      <div class="flex items-center">
-        <img src="assets/removed-background.png" alt="Minecraft Logo" class="h-10 mr-2">
-        <span class="text-white text-xl font-bold">Mallu LifeSteal</span>
-      </div>
+<!-- Navigation Bar -->
+<nav class="fixed w-full bg-gray-800 p-4 z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo and Brand Name -->
+    <div class="flex items-center">
+      <img src="assets/removed-background.png" alt="Minecraft Logo" class="h-8 md:h-10 mr-2">
+      <span class="text-white text-lg md:text-xl font-bold">Mallu LifeSteal</span>
+    </div>
 
-      <!-- Navigation Links and Profile Icon -->
-      <div class="flex items-center space-x-6">
-        <!-- Navigation Links -->
-        <ul class="hidden md:flex space-x-6">
-          <li><a routerLink="/home" class="text-white hover:text-blue-400 transition-colors">Home</a></li>
-          <li><a routerLink="/about" class="text-white hover:text-blue-400 transition-colors">About</a></li>
-          <li><a routerLink="/servers" class="text-white hover:text-blue-400 transition-colors">Servers</a></li>
-          <li><a routerLink="/contact" class="text-white hover:text-blue-400 transition-colors">Contact</a></li>
-        </ul>
+    <!-- Mobile Menu Button (visible only on small screens) -->
+    <button (click)="toggleMobileMenu()" class="md:hidden text-white focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
 
-        <!-- Profile Section -->
-        <div class="relative group">
-          <button (click)="handleProfileClick()" class="focus:outline-none flex flex-col items-center">
-            <img src="/assets/Igh0zt-Ios7-Style-Metro-Ui-MetroUI-Apps-Minecraft.512.png" alt="Profile"
-              class="w-12 h-12 rounded-full border-2 border-blue-400 hover:border-blue-500 transition-colors">
-            <span class="text-white text-sm mt-1 font-semibold">{{ userData.name }}</span>
-          </button>
+    <!-- Navigation Links and Profile Icon (desktop) -->
+    <div class="hidden md:flex items-center space-x-6">
+      <!-- Navigation Links -->
+      <ul class="flex space-x-6">
+        <li><a routerLink="/home" class="text-white hover:text-blue-400 transition-colors">Home</a></li>
+        <li><a routerLink="/about" class="text-white hover:text-blue-400 transition-colors">About</a></li>
+        <li><a routerLink="/servers" class="text-white hover:text-blue-400 transition-colors">Servers</a></li>
+        <li><a routerLink="/contact" class="text-white hover:text-blue-400 transition-colors">Contact</a></li>
+      </ul>
 
-          <!-- Dropdown Menu -->
-          <div *ngIf="isLoggedIn"
-            class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-600 rounded-t-lg">Profile</a>
-            <a routerLink="/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Trades</a>
-            <a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-600">About</a>
-            <a routerLink="/contact" class="block px-4 py-2 text-white hover:bg-gray-600">Contact</a>
-            <a href="#" (click)="logout()" class="block px-4 py-2 text-white hover:bg-red-500 rounded-b-lg">Logout</a>
-          </div>
+      <!-- Profile Section (desktop) -->
+      <div class="relative group">
+        <button (click)="handleProfileClick()" class="focus:outline-none flex flex-col items-center">
+          <img src="/assets/Igh0zt-Ios7-Style-Metro-Ui-MetroUI-Apps-Minecraft.512.png" alt="Profile"
+            class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-blue-400 hover:border-blue-500 transition-colors">
+          <span class="text-white text-xs md:text-sm mt-1 font-semibold">{{ userData.name }}</span>
+        </button>
+
+        <!-- Dropdown Menu (desktop) -->
+        <div *ngIf="isLoggedIn"
+          class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-600 rounded-t-lg">Profile</a>
+          <a routerLink="/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Trades</a>
+          <a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-600">About</a>
+          <a routerLink="/contact" class="block px-4 py-2 text-white hover:bg-gray-600">Contact</a>
+          <a href="#" (click)="logout()" class="block px-4 py-2 text-white hover:bg-red-500 rounded-b-lg">Logout</a>
         </div>
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- Dashboard Content -->
-  <div class="pt-20">
-    <div class="flex min-h-screen bg-gray-100">
-      <!-- Sidebar -->
-      <div class="w-64 bg-gray-800 min-h-screen">
+  <!-- Mobile Menu (expandable) -->
+  <div *ngIf="mobileMenuOpen" class="md:hidden bg-gray-800 mt-4 rounded-lg shadow-lg">
+    <ul class="py-2">
+      <li><a routerLink="/home" class="block px-4 py-2 text-white hover:bg-gray-700">Home</a></li>
+      <li><a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-700">About</a></li>
+      <li><a routerLink="/servers" class="block px-4 py-2 text-white hover:bg-gray-700">Servers</a></li>
+      <li><a routerLink="/contact" class="block px-4 py-2 text-white hover:bg-gray-700">Contact</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-700">Profile</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/trades" class="block px-4 py-2 text-white hover:bg-gray-700">Trades</a></li>
+      <li *ngIf="isLoggedIn"><a href="#" (click)="logout()" class="block px-4 py-2 text-white hover:bg-red-500">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="pt-20">
+  <div class="flex flex-col md:flex-row min-h-screen bg-gray-100">
+    <!-- Sidebar (collapsible on mobile) -->
+    <div class="relative">
+      <!-- Mobile Sidebar Toggle -->
+      <button (click)="toggleSidebar()" 
+        class="md:hidden fixed bottom-4 right-4 bg-gray-800 text-white p-3 rounded-full shadow-lg z-20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Sidebar Content -->
+      <div [ngClass]="{'translate-x-0': sidebarOpen || !isMobile, '-translate-x-full': !sidebarOpen && isMobile}"
+        class="bg-gray-800 w-64 min-h-screen transition-transform duration-300 ease-in-out md:translate-x-0 fixed md:static z-10">
         <div class="p-4">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-white text-xl font-bold">Dashboard</h2>
+            <button (click)="toggleSidebar()" class="md:hidden text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
           <ul class="space-y-2">
             <li>
               <a routerLink="/dashboard/profile" routerLinkActive="bg-blue-600"
@@ -61,10 +100,11 @@
           </ul>
         </div>
       </div>
+    </div>
 
-      <!-- Main Content Area -->
-      <div class="flex-1 p-8">
-        <router-outlet></router-outlet>
-      </div>
+    <!-- Main Content Area -->
+    <div class="flex-1 p-4 md:p-8 w-full">
+      <router-outlet></router-outlet>
     </div>
   </div>
+</div>

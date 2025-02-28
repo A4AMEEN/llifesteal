@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
  // Import the service
@@ -11,9 +11,10 @@ import { catchError, throwError } from 'rxjs';
   standalone: false,
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   authForm: FormGroup;
   errorMessages: string = '';
+  admin:any
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,10 @@ export class AuthComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       adminCode: ['', [Validators.required]] // Admin code field
     });
+  }
+
+  ngOnInit(): void {
+     
   }
 
   onLogin() {

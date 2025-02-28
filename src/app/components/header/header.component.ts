@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 
@@ -8,16 +8,22 @@ import { PlayerService } from '../../services/player.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   username: string = 'Guest';
   isLoggedIn: boolean = false;
   showDropdown: boolean = false;  // Add this property
   isDropdownOpen: boolean = false;
-
+  userData:any
   constructor(private router: Router, private authService: PlayerService) {
     this.checkUserStatus();
   }
-
+  ngOnInit() {
+   this.getUserData()
+  }
+  getUserData() {
+    this.userData = this.authService.getUser();
+    console.log(this.userData);
+  }
   checkUserStatus() {
     const user = this.authService.getUser();
     if (user) {

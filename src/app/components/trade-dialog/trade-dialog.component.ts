@@ -109,7 +109,7 @@ export class TradeDialogComponent {
       console.log("Existing trades:", this.userData.totalTrades);
       this.max = 20;
     } else {
-      this.max = 5;
+      this.max = 3;
     }
     console.log("max");
     
