@@ -16,6 +16,7 @@
                 <ul class="hidden md:flex space-x-6">
                     <li><a routerLink="/home" class="text-white hover:text-blue-400 transition-colors">Home</a></li>
                     <li><a routerLink="/about" class="text-white hover:text-blue-400 transition-colors">About</a></li>
+                    <li><a routerLink="/trades" class="text-white hover:text-blue-400 transition-colors">Trades</a></li>
                     <li><a routerLink="/dashboard/trades" class="text-white hover:text-blue-400 transition-colors">Your Trades</a></li>
                     <li><a routerLink="/contact" class="text-white hover:text-blue-400 transition-colors">Contact</a></li>
                 </ul>
@@ -32,6 +33,7 @@
                     <div *ngIf="isLoggedIn && isDropdownOpen"
                         class="absolute right-0 mt-2 w-48 bg-gray-700 rounded-lg shadow-lg">
                         <a routerLink="/dashboard/profile" class="block px-4 py-2 text-white hover:bg-gray-600 rounded-t-lg">Profile</a>
+                        <a routerLink="/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Trades</a>
                         <a routerLink="/dashboard/trades" class="block px-4 py-2 text-white hover:bg-gray-600">Your Trades</a>
                         <a routerLink="/about" class="block px-4 py-2 text-white hover:bg-gray-600">About</a>
                         <a routerLink="/contact" class="block px-4 py-2 text-white hover:bg-gray-600">Contact</a>

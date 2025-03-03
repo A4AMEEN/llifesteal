@@ -10,8 +10,8 @@ import { isPlatformBrowser } from '@angular/common';
 export class PlayerService {
   private tokenKey = 'authToken';
   private userKey = 'userData';
-  //private apiUrl = 'http://localhost:5000/api/auth';
-  private apiUrl = 'https://backend-rosy-eight-77.vercel.app/api/auth';
+  private apiUrl = 'http://localhost:5000/api/auth';
+  //private apiUrl = 'https://backend-rosy-eight-77.vercel.app/api/auth';
   private linkedApiUrl = 'http://api.mallulifesteal.fun/api/linked';
   private apiKey = 'mallu-public-api-key';
   private adminTokenKey = 'adminToken';
@@ -183,6 +183,36 @@ export class PlayerService {
   getLinkedUsers(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/linked-users`);
   }
+  toggleBlockStatus(playerName: string, currentStatus: boolean): Observable<any> {
+    const action = currentStatus ? 'unblock' : 'block';
+    return this.http.put(`${this.apiUrl}/player/${playerName}/${action}`, {}) // Use playerName
+      .pipe(
+        catchError(error => {
+          return throwError(() => new Error(error.error.message || `Failed to ${action} player`));
+        })
+      );
+}
+
+
+  checkBlockStatus(): Observable<any> {
+    const user = this.getUser();
+    if (!user) return throwError(() => new Error('No user logged in'));
+    
+    return this.http.get<any>(`${this.apiUrl}/player/${user._id}/status`).pipe(
+      tap(response => {
+        // Update the user data in localStorage
+        if (response.isBlocked) {
+          // Update user data
+          const updatedUser = { ...user, isBlocked: true };
+          this.setUser(updatedUser);
+        }
+      }),
+      catchError(error => {
+        return throwError(() => new Error(error.error?.message || 'Failed to check user status'));
+      })
+    );
+  }
+
 
   // Verify OTP
   verifyOtp(email: string, otp: string): Observable<any> {

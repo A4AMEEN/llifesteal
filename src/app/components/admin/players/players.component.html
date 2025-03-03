@@ -1,20 +1,29 @@
 <div class="bg-gray-900 text-white p-6">
-    <h2 class="text-2xl font-bold mb-4">Player Listing</h2>
-    <div *ngIf="loading" class="text-center">
-      <p>Loading players...</p>
-    </div>
-    <div *ngIf="error" class="text-red-500">
-      <p>{{ error }}</p>
-    </div>
-    <ul *ngIf="!loading && !error && players.length > 0" class="space-y-3">
-      <li *ngFor="let player of players" class="p-3 bg-gray-800 rounded-lg">
+  <h2 class="text-2xl font-bold mb-4">Player Listing</h2>
+  <div *ngIf="loading" class="text-center">
+    <p>Loading players...</p>
+  </div>
+  <div *ngIf="error" class="text-red-500">
+    <p>{{ error }}</p>
+  </div>
+  <ul *ngIf="!loading && !error && players.length > 0" class="space-y-3">
+    <li *ngFor="let player of players" class="p-3 bg-gray-800 rounded-lg flex justify-between items-start">
+      <div>
         <p><strong>Name:</strong> {{ player.name }}</p>
         <p><strong>Email:</strong> {{ player.email }}</p>
         <p><strong>Total Trades:</strong> {{ player.totalTrades }}</p>
-      </li>
-    </ul>
-    <p *ngIf="!loading && !error && players.length === 0" class="text-center">
-      No players found.
-    </p>
-  </div>
-  
+      </div>
+      <button 
+        (click)="toggleBlockStatus(player.name, player.isBlocked)" 
+        class="px-3 py-1 rounded-md text-sm"
+        [class.bg-red-600]="!player.isBlocked"
+        [class.bg-green-600]="player.isBlocked">
+        <span *ngIf="!player.isBlocked">Block</span>
+        <span *ngIf="player.isBlocked">Unblock</span>
+      </button>
+    </li>
+  </ul>
+  <p *ngIf="!loading && !error && players.length === 0" class="text-center">
+    No players found.
+  </p>
+</div>
