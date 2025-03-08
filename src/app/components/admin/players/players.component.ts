@@ -23,7 +23,9 @@ export class PlayerListComponent implements OnInit {
     if (this.playerService.isLoggedIn()) {
       this.startBlockStatusCheck();
     }
+    this.playerService.adminLogout()
   }
+  
 
   startBlockStatusCheck() {
     interval(300000) // 5 minutes

@@ -18,6 +18,7 @@ export class TradingComponent implements OnInit {
     this.loadTrades();
     this.admin=this.authService.getAdminData()
     console.log('admin',this.admin);
+    this.authService.adminLogout()
     
   }
 

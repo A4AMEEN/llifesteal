@@ -19,9 +19,8 @@ export class PlayerService {
 
   // Hardcoded admin credentialsdwadawdwa
   private adminCredentials: { email: string; password: string; code: string; name: string }[] = [
-    { email: 'shakthi@lifesteal.com', password: 'password', code: '122333', name: 'Shakthi' },
-    { email: 'practice@lifesteal.com', password: 'password', code: '122333', name: 'Practice' },
-    { email: 'fearxlifesteal@gmail.com', password: 'password', code: '122333', name: 'FearX' },
+    { email: 'shakthi@lifesteal.com', password: 'bitcoin', code: '000010', name: 'Shakthi' },
+    { email: 'practice@lifesteal.com', password: 'bitcoin', code: '000007', name: 'Practice' },
   ];
 
   constructor(

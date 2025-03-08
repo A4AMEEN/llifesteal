@@ -58,6 +58,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     window.addEventListener('resize', this.handleResize.bind(this));
+    this.authService.adminLogout()
   }
 
   ngOnDestroy() {

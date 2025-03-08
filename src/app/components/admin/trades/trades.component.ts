@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TradeService } from '../../../services/trades.service';
+import { PlayerService } from '../../../services/player.service';
 
 @Component({
   selector: 'app-trade',
@@ -23,10 +24,11 @@ export class TradeComponent implements OnInit {
   selectedTrade: any = null;
   URL = URL; // Make URL available in template
 
-  constructor(private tradeService: TradeService) { }
+  constructor(private tradeService: TradeService,private authService:PlayerService) { }
 
   ngOnInit() {
     this.loadTrades();
+    this.authService.adminLogout()
   }
 
   onAddTrade() {
